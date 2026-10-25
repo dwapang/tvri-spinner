@@ -1,0 +1,85 @@
+@import './tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, ::before, ::after {
+    border-color: var(--hairline);
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    text-transform: none !important;
+    letter-spacing: normal;
+    touch-action: manipulation;
+  }
+
+  /* Prevent uppercase anywhere in the UI */
+  button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, th, td, label, div {
+    text-transform: none !important;
+  }
+
+  /* Tabular numbers for quantities & percentages */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Custom focus ring specification */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* Disabled standard focus for non-keyboard where supported */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* Translucency classes strictly restricted to Header, TabBar, Scrim */
+.chrome-translucent {
+  background-color: rgba(245, 247, 250, 0.85);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+[data-theme="dark"] .chrome-translucent,
+.dark .chrome-translucent {
+  background-color: rgba(11, 18, 32, 0.85);
+}
+
+.scrim-translucent {
+  background-color: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Keyboard hint fine-pointer visibility */
+.fine-pointer-only {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .fine-pointer-only {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
