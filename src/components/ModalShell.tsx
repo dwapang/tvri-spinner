@@ -8,6 +8,7 @@ interface ModalShellProps {
   title?: string;
   children: React.ReactNode;
   maxWidth?: string; // desktop max width, default max-w-[420px]
+  contentPadding?: string; // desktop padding, default p-7
   showCloseButton?: boolean;
 }
 
@@ -17,6 +18,7 @@ export const ModalShell: React.FC<ModalShellProps> = ({
   title,
   children,
   maxWidth = 'max-w-[420px]',
+  contentPadding = 'p-7',
   showCloseButton = true,
 }) => {
   const { isMobile } = useDeviceType();
@@ -70,7 +72,7 @@ export const ModalShell: React.FC<ModalShellProps> = ({
         className={`relative z-10 w-full outline-none bg-surface text-text overflow-hidden transition-all duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
           isMobile
             ? 'rounded-t-dialog max-h-[90dvh] pb-[max(16px,env(safe-area-inset-bottom))] shadow-floating animate-in slide-in-from-bottom'
-            : `rounded-dialog ${maxWidth} p-7 shadow-floating animate-in fade-in zoom-in-95`
+            : `rounded-dialog ${maxWidth} ${contentPadding} shadow-floating animate-in fade-in zoom-in-95`
         }`}
       >
         {/* Mobile Grabber */}

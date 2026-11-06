@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { ModalShell } from './ModalShell';
 import { useI18n } from '../i18n/useI18n';
 import type { Item, Slice } from '../types';
@@ -28,25 +28,44 @@ export const ResultDialog: React.FC<ResultDialogProps> = ({
   const { t } = useI18n();
   const [winnerName, setWinnerName] = useState('');
   const textRef = useRef<HTMLHeadingElement>(null);
+  const isDismissingRef = useRef(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      isDismissingRef.current = false;
+      setWinnerName('');
+    }
+  }, [isOpen]);
 
   // Closing the dialog counts as Confirm
   const handleDismiss = () => {
+    if (isDismissingRef.current) return;
+    isDismissingRef.current = true;
     onConfirm(winnerName);
     onClose();
   };
 
   const handleConfirmOnly = () => {
+    if (isDismissingRef.current) return;
+    isDismissingRef.current = true;
     onConfirm(winnerName);
+    onClose();
     setWinnerName('');
   };
 
   const handleConfirmAndSpinAgain = () => {
+    if (isDismissingRef.current) return;
+    isDismissingRef.current = true;
     onConfirmAndSpinAgain(winnerName);
+    onClose();
     setWinnerName('');
   };
 
   const handleUndo = () => {
+    if (isDismissingRef.current) return;
+    isDismissingRef.current = true;
     onUndo();
+    onClose();
     setWinnerName('');
   };
 

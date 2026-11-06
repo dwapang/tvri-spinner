@@ -30,11 +30,12 @@ export const SettingsSheet: React.FC<SettingsSheetProps> = ({
         isOpen={isOpen}
         onClose={onClose}
         title={t('settings')}
-        maxWidth="max-w-[480px]"
+        maxWidth="max-w-[390px]"
+        contentPadding="p-5 sm:p-5"
       >
-        <div className="space-y-6">
+        <div className="space-y-3.5">
           {/* Group 1: Appearance & Wheel Colors */}
-          <div className="bg-surface-2/50 rounded-panel p-3.5 space-y-3.5 border border-hairline">
+          <div className="bg-surface-2/50 rounded-panel p-3 space-y-2.5 border border-hairline">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <span className="text-[14px] font-medium text-text shrink-0">{t('appearance')}</span>
               <SegmentedControl
@@ -77,7 +78,7 @@ export const SettingsSheet: React.FC<SettingsSheetProps> = ({
           </div>
 
           {/* Group 2: Display */}
-          <div className="bg-surface-2/50 rounded-panel p-3.5 space-y-3.5 border border-hairline">
+          <div className="bg-surface-2/50 rounded-panel p-3 space-y-2.5 border border-hairline">
             <div className="flex items-center justify-between">
               <div className="pr-4">
                 <span className="text-[14px] font-medium text-text block">
@@ -93,9 +94,9 @@ export const SettingsSheet: React.FC<SettingsSheetProps> = ({
           </div>
 
           {/* Group 3: Spin Behavior */}
-          <div className="bg-surface-2/50 rounded-panel p-3.5 space-y-3.5 border border-hairline">
+          <div className="bg-surface-2/50 rounded-panel p-3 space-y-2.5 border border-hairline">
             <div>
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-1.5">
                 <span className="text-[14px] font-medium text-text">{t('spinDuration')}</span>
               </div>
               <SegmentedControl
@@ -171,7 +172,7 @@ export const SettingsSheet: React.FC<SettingsSheetProps> = ({
             <button
               type="button"
               onClick={() => setShowResetAlert(true)}
-              className="w-full h-11 text-[14px] text-danger font-medium hover:bg-danger/10 rounded-control transition-colors focus-visible:ring-2 focus-visible:ring-focus"
+              className="w-full h-9 text-[13px] text-danger font-medium hover:bg-danger/10 rounded-control transition-colors focus-visible:ring-2 focus-visible:ring-focus"
             >
               {t('resetAllData')}
             </button>

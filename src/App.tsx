@@ -52,6 +52,8 @@ export const AppContent: React.FC<AppContentProps> = ({ state }) => {
     clearHistory,
     spin,
     shuffleWheel,
+    setWinningSliceId,
+    setResultModalData,
   } = state;
 
   // Navigation & View States
@@ -248,7 +250,7 @@ export const AppContent: React.FC<AppContentProps> = ({ state }) => {
         className={`flex-1 flex flex-col ${
           isFullscreen
             ? 'p-6 sm:p-12 items-center justify-center relative'
-            : 'max-w-[1240px] w-full mx-auto px-4 sm:px-6 py-4 sm:py-8'
+            : 'max-w-[1240px] w-full mx-auto px-4 sm:px-6 py-3 sm:py-5'
         }`}
       >
         {/* Presentation mode exit floating button */}
@@ -420,7 +422,6 @@ export const AppContent: React.FC<AppContentProps> = ({ state }) => {
                         setEditingItem(item);
                         setIsPrizeFormOpen(true);
                       }}
-                      onDeleteItem={requestDeletePrize}
                       onAdjustQty={adjustQuantity}
                       onLoadSampleData={loadSampleData}
                       onExportJson={handleExportJson}
@@ -441,6 +442,13 @@ export const AppContent: React.FC<AppContentProps> = ({ state }) => {
           </div>
         )}
       </main>
+
+      {/* Footer */}
+      {!isFullscreen && (
+        <footer className={`w-full py-2.5 text-center text-[12px] sm:text-[13px] text-text-2 tracking-normal ${isMobile ? 'mb-20' : ''}`}>
+          created by @dwapang
+        </footer>
+      )}
 
       {/* Mobile Translucent Bottom Tab Bar */}
       {!isFullscreen && (
@@ -490,9 +498,8 @@ export const AppContent: React.FC<AppContentProps> = ({ state }) => {
           undoLastWin();
         }}
         onClose={() => {
-          if (resultModalData) {
-            confirmWin(resultModalData.item);
-          }
+          setResultModalData(null);
+          setWinningSliceId(null);
         }}
       />
 

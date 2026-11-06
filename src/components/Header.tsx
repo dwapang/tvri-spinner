@@ -22,20 +22,16 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-30 w-full min-h-[56px] sm:min-h-[64px] bg-[var(--header-bg)] border-b border-black/10 dark:border-white/[0.06] flex items-center justify-between px-4 sm:px-6 pt-[env(safe-area-inset-top)] select-none">
-      {/* Brand Monogram + Title */}
+      {/* Brand Logo + Title */}
       <div className="flex items-center gap-3">
         {!logoFailed ? (
-          <div className="w-8 h-8 sm:w-9 sm:h-9 bg-white rounded-chip p-0.5 flex items-center justify-center shadow-sm">
-            <img
-              src={`${import.meta.env.BASE_URL}logo.png`}
-              alt="Logo"
-              onError={() => setLogoFailed(true)}
-              className="w-full h-full object-contain rounded-[6px]"
-            />
-          </div>
-        ) : null}
-
-        {logoFailed && (
+          <img
+            src={`${import.meta.env.BASE_URL}logo.png`}
+            alt="TVRI Logo"
+            onError={() => setLogoFailed(true)}
+            className="h-7 sm:h-8 w-auto object-contain"
+          />
+        ) : (
           <div
             aria-hidden="true"
             className="w-8 h-8 sm:w-9 sm:h-9 rounded-chip bg-white text-brand flex items-center justify-center font-bold text-[17px] sm:text-[18px] select-none shadow-sm"

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+import { Plus, MoreHorizontal, Pencil } from 'lucide-react';
 import type { Item, PaletteType } from '../types';
 import { getItemColor } from '../lib/palettes';
 import { Stepper } from './Stepper';
@@ -11,7 +11,6 @@ interface PrizeListProps {
   isSpinning: boolean;
   onAddItem: () => void;
   onEditItem: (item: Item) => void;
-  onDeleteItem: (id: string) => void;
   onAdjustQty: (id: string, delta: number) => void;
   onLoadSampleData: () => void;
   onExportJson: () => void;
@@ -26,7 +25,6 @@ export const PrizeList: React.FC<PrizeListProps> = ({
   isSpinning,
   onAddItem,
   onEditItem,
-  onDeleteItem,
   onAdjustQty,
   onLoadSampleData,
   onExportJson,
@@ -229,21 +227,6 @@ export const PrizeList: React.FC<PrizeListProps> = ({
                       className="w-8 h-8 hidden sm:flex items-center justify-center rounded-control text-text-2 hover:text-text hover:bg-surface-2 transition-colors"
                     >
                       <Pencil size={15} strokeWidth={1.75} />
-                    </button>
-
-                    {/* Hover Trash on desktop */}
-                    <button
-                      type="button"
-                      disabled={isSpinning}
-                      onClick={e => {
-                        e.stopPropagation();
-                        onDeleteItem(item.id);
-                      }}
-                      title={t('deletePrize')}
-                      aria-label={t('deletePrize')}
-                      className="w-8 h-8 hidden sm:group-hover:flex items-center justify-center rounded-control text-text-2 hover:text-danger hover:bg-danger/10 transition-colors"
-                    >
-                      <Trash2 size={15} strokeWidth={1.75} />
                     </button>
                   </div>
                 </div>

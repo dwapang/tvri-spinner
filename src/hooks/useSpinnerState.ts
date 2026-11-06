@@ -46,6 +46,7 @@ export function useSpinnerState() {
   const pointerStateRef = useRef<PointerState>(createInitialPointerState());
   const previousShuffleSeedRef = useRef<number | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasConfirmedCurrentWinRef = useRef(false);
 
   // Sync to localStorage
   useEffect(() => {
@@ -220,6 +221,7 @@ export function useSpinnerState() {
   }, []);
 
   const resetAllData = useCallback(() => {
+    hasConfirmedCurrentWinRef.current = false;
     setData({
       version: 2,
       items: DEFAULT_ITEMS,
@@ -236,6 +238,10 @@ export function useSpinnerState() {
   // History & Undo actions
   const confirmWin = useCallback(
     (winnerItem: Item, winnerName?: string) => {
+      // Prevent double confirmation of the same spin win
+      if (hasConfirmedCurrentWinRef.current) return;
+      hasConfirmedCurrentWinRef.current = true;
+
       const spinNo = data.history.length + 1;
       const entry: HistoryEntry = {
         id: `win-${Date.now()}`,
@@ -266,6 +272,7 @@ export function useSpinnerState() {
   );
 
   const undoLastWin = useCallback(() => {
+    hasConfirmedCurrentWinRef.current = false;
     if (data.history.length === 0) return;
 
     setData(prev => {
@@ -395,6 +402,7 @@ export function useSpinnerState() {
     setIsSpinning(true);
     setWinningSliceId(null);
     setResultModalData(null);
+    hasConfirmedCurrentWinRef.current = false;
     pointerStateRef.current = createInitialPointerState();
 
     const startRotation = rotation;
